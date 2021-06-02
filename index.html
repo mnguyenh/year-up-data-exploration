@@ -1,166 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>CSS Template</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-* {
-  box-sizing: border-box;
-  font-family: Georgia, Helvetica, sans-serif;
-}
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<title>Data Exploration</title>
 
-body {
-  margin: 0;
-  font-family: Georgia, Helvetica, sans-serif;
-}
+	<!-- CITED SOURCES : INFORMATION -->
+	<!-- https://www.glassdoor.com/member/home/index.htm
+	https://targetjobs.co.uk/careers-advice/job-descriptions/454089-data-analyst-job-description
+	https://datasciencedegree.wisconsin.edu/data-science/what-do-data-scientists-do/
+	https://searchbusinessanalytics.techtarget.com/definition/data-visualization
+	https://www.springboard.com/library/data-engineering/job-description/ 
+	https://www.yearup.org/ -->
 
-/* Style the top navigation bar */
-.topnav {
-  overflow: hidden;
-  background-color: #6930c3;
-}
 
-/* Style the topnav links */
-.topnav a {
-  float: left;
-  display: block;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
+	
+	<!-- CITED SOURCES: PHOTOS-->
+	<!-- https://www.google.com/url?sa=i&url=https%3A%2F%2Fsmoosavi.org%2Fdatasets%2Flstw&psig=AOvVaw298fIbgj2h86-o5T5t4jTB&ust=1622680648698000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCMCr49Ha9_ACFQAAAAAdAAAAABAR
+	data:image/png;base64,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
+	https://faoschwarzfellowship.org/wp-content/uploads/2020/10/Year-Up-photo-4-my-favorite.jpg
+	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQL8TliB43EN5kaVRSawSsRF1Zc0w0JyM601Q&usqp=CAU
+	https://cdn.columbiauniversitybootcamp.com/wp-content/uploads/sites/108/2020/04/data-analyst-skills-2020.jpg -->
 
-/* Change color on hover */
-.topnav a:hover {
-  background-color: #7400b8;
-  color: pink;
-}
-
-/* Style the content */
-.content {
-  background-color: #5e60ce;
-  padding: 10px;
-  height: auto;
-  color: white;
-}
-
-.ui-ux {
-  background-color: #5390d9;
-  padding: 10px;
-  height: auto;
-  color: white;
-  overflow-y: auto;
-  }
-  
-.data-engineer {
-  background-color: #4ea8de;
-  padding: 10px;
-  height: auto;
-  color: white;
-  }
-  
-.data-analyst {
-  background-color: #48bfe3;
-  padding: 10px;
-  height: auto;
-  color: white;
-  }
-
-.data-scientist {
-  background-color: #56cfe1;
-  padding: 10px;
-  height: auto;
-  color: white;
-  }
-/* Style the footer */
-.footer {
-  background-color: #64dfdf;
-  padding: 10px;
-  color: white;
-}
-.bold {font-weight: bold;}
-
-</style>
 </head>
 <body>
 
-<div class="topnav">
-  <a href="#ui-ux">UI/UX</a>
-  <a href="#data-engineer">Data Engineer</a>
-  <a href="#data-analyst">Data Analyst</a>
-  <a href="#data-scientist">Data Scientist</a>
-</div>
+    <div class="container-fluid" id="main">
+        
+		<!-- navbar  -->
+		<nav class="navbar py-3 navbar-expand-lg navbar-dark bg-dark" id="navtext">
+			<a style= "font-size: 45px;" class="navbar-brand" href="#">Data Pathway</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav" style="font-size: 25px; padding-left: 20px;">
+					<li class="nav-item active" style="padding-left: 20px;">
+						<a class="nav-link" href="#intro">Year Up <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item" style="padding-left: 20px;">
+						<a class="nav-link" href="#da">Analyst</a>
+					</li>
+					<li class="nav-item" style="padding-left: 20px;">
+						<a class="nav-link" href="#ui">UI/UX</a>
+					</li>
+					<li class="nav-item" style="padding-left: 20px;">
+						<a class="nav-link" href="#de">Engineer</a>
+					</li>
+					<li class="nav-item" style="padding-left: 20px;">
+						<a class="nav-link" href="#ds">Scientist</a>
+					</li>
+					<li class="nav-item" style="padding-left: 20px;">
+						<a class="nav-link disabled" href="#"></a>
+					</li>
+				</ul>
+			</div>
+		</nav><!-- End NavBar-->
 
-<div class="content">
-  <h2>Careers in Data</h2>
-  <p>
+        <div class="content">
+			
+			<div class="yearUp">
+				<img src="images/yuLogo.png" alt="Year Up Logo" id="logo">
+				<img src="images/YearupGroup.jpg" alt="Year Up Group Photo" id="group">
+				<p>Year Up is an intensive, one-year program that empowers young adults to complete college level courses, gain hands-on professional skills development, and internships at some of America's top companies. Year Up is committed to ensuring equitable access to economic opportunity, education, and justice for all young adults—no matter their background, income, or zip code. Employers face a growing need for talent while millions are left disconnected from the economic mainstream. These inequities only further perpetuate the Opportunity Divide that exists in our country—a divide that Year Up is determined and positioned to close. In addition to driving impact through direct service and strategic partnerships with employers, talent providers, and policymakers, Year Up is committed to addressing the root causes of the Opportunity Divide in this country and creating pathways to opportunity at broad scale. Helping to power the opportunity movement and make this work possible are two essential partnerships with Grads of Life and YUPRO.</p>
+				<p>As current Year Up apprentices, this page has been dedicated to providing information for current and future Year Up students looking to inquire a career pathway specifically invovling data. The top three positions with increasing demand across industries in the United States, according to the <a id="a" href="https://www.weforum.org/agenda/2020/10/x-charts-showing-the-jobs-of-a-post-pandemic-future-and-the-skills-you-need-to-get-them/">World Economic Forum's The Future of Jobs Report 2020</a>—data analysts and scientists, AI and machine learning specialists, and big data professionals—all come under the data analytics umbrella.</p>
+			</div>
+			
+			<div class="analyst">
+				<img src="images/da.png" alt="da skills wheel" id="wheel">
+				<h1 id="da">Data Analyst</h1>
+				<p>Data Analysts are entrusted with building an awareness of various research needs and analytic functions across many projects. Additionally, they will collaborate on projects with other Data Analysts and Data Extraction Analysts, requiring knowledge and skill sharing as well as group problem solving. Overall, a Data Analyst will be an important part of a fast-paced research team. Data Analysts scrutinise information using data analysis tools. The meaningful results they pull from the raw data help their employers or clients make important decisions by identifying various facts and trends.</p>
+				<p>Typical duties include:</p>
+				<ul>
+					<li>Using advanced computerised models to extract the data needed</li>
+					<li>Removing corrupted data</li>	
+					<li>Performing initial analysis to assess the quality of the data</li>	
+					<li>Performing further analysis to determine the meaning of the data</li> 
+					<li>Performing final analysis to provide additional data screening</li>
+					<li>Preparing reports based on analysis and presenting to management</li> 
+				</ul>
+				<p>Both university graduates and school leavers can enter the data analysis profession. For graduates, the usual entry point is a degree in statistics, mathematics or a related subject involving maths, such as economics or data science. Other degrees are also acceptable if they include informal training in statistics as part of the course, for instance sociology or informatics. It is possible to enter this career without a degree. Data analyst apprenticeships are available with a range of employers.</p>
+				<p>The average salary for a Data Analyst can be found here: <a id="a" href="https://www.glassdoor.com/Salaries/seattle-data-analyst-salary-SRCH_IL.0,7_IM781_KO8,20.htm?clickSource=searchBtn">Glass Door - Data Analyst</a></p>
+				<p>A list of current openings for this type of position can be found here: <a id="a" href="https://www.glassdoor.com/Job/data-analyst-jobs-SRCH_KO0,12.htm"> Glassdoor - Data Analyst</a></p>
+			</div>
+			
+			<div class="ui/ux">
+				<h1 id="ui">Data Visualization</h1>
+				<p>Data visualization to inform the design process: UX Designers collect and collate data to improve the design and development of a product such as UX reports. Data visualization is to inform the user experience by designing interfaces that will allow users to visualize and contextualize data. By using graphical representations of business information, businesses are able to see large amounts of data in clear, cohesive ways – and draw conclusions from that information. And since it’s significantly faster to analyze information in graphical format (as opposed to analyzing information in spreadsheets), businesses can address problems or answer questions in a more timely manner. Once a business has uncovered new insights from visual analytics, the next step is to communicate those insights to others. Using charts, graphs or other visually impactful representations of data is important in this step because it’s engaging and gets the message across quickly. Even extensive amounts of complicated data start to make sense when presented graphically; businesses can recognize parameters that are highly correlated. Some of the correlations will be obvious, but others won’t. Identifying those relationships helps organizations focus on areas most likely to influence their most important goals. Using data visualization to discover trends – both in the business and in the market – can give businesses an edge over the competition, and ultimately affect the bottom line. It’s easy to spot outliers that affect product quality or customer churn, and address issues before they become bigger problems.</p>
+				<p>An innovative and hardworking UX Designer should be able to fulfill various duties and responsibilities. Including this category in your job description will help attract a capable candidate for your position.</p>
+				<p>The following are important duties and responsibilities that a UX Designer should be able to execute:</p>
+				<ul>
+					<li>Identify target user groups and carry out interviews or other types of inquiry to help understand user needs</li>
+					<li>Ensure the creation and implementation of customized experiences for the digital user</li>
+					<li>Produce high-quality solutions through flow diagrams, graphic designs, storyboards and site maps</li>
+				</ul>
+				<p>The average salary for a Data Visualization can be found here: <a id="a" href="https://www.glassdoor.com/Salaries/data-visualization-salary-SRCH_KO0,18.htm">Glass Door - Data Visualization</a></p>
+				<p>A list of current openings for this type of position can be found here: <a id="a" href="https://www.glassdoor.com/Job/data-visualization-jobs-SRCH_KO0,18.htm"> Glassdoor - Data Visualization</a></p>
+				<img id="map" src="images/BayArea.gif" alt="gif of data visual map">
+			</div>
+			
+			<div class="engineering">
+				<h1 id="de">Data Engineering</h1>
+				<p>Data engineers use a variety of techniques to improve the consistency and quality of data. They mix raw data from several sources to create formats that are consistent and machine-readable. They also create and test data extraction and transformation frameworks for predictive and prescriptive modeling. Data engineering uses tools like SQL and Python to make data ready for data scientists. Data engineering works with data scientists to understand their specific needs for a job. They build data pipelines that source and transform the data into the structures needed for analysis. The goal of data engineering is to architect and build pipelines that provide functionality, speed, scalability, and reliability required by the business to use data effectively. The various stages in a pipeline are acquisition, transport, storage, processing and servicing.</p>
+				<p>The key to understanding what data engineering lies in the “engineering” part. Engineers design and build things. “Data” engineers design and build pipelines that transform and transport data into a format wherein, by the time it reaches the Data Scientists or other end users, it is in a highly usable state. These pipelines must take data from many disparate sources and collect them into a single warehouse that represents the data uniformly as a single source of truth.</p>
+				<p>Data Engineering responsibilities can include but aren't limited to:</p>
+				<ul>
+					<li>Develop, construct, test and maintain architectures</li>
+					<li>Align architecture with business requirements</li>
+					<li>Data acquisition</li>
+					<li>Develop data set processes</li>
+					<li>Use programming language and tools</li>
+					<li>Identify ways to improve data reliability, efficiency and quality</li>
+				</ul>
+				<p>The average salary for a Data Engineer can be found here: <a id="a" href="https://www.glassdoor.com/Salaries/data-engineer-salary-SRCH_KO0,13.htm">Glass Door - Data Engineer</a></p>
+				<p>A list of current openings for this type of position can be found here: <a id="a" href="https://www.glassdoor.com/Job/data-engineer-jobs-SRCH_KO0,13.htm"> Glassdoor - Data Engineer</a></p>
+			</div>
 
-The top three positions with increasing demand across industries in the United States, according to the <a href="url">World Economic Forum's The Future of Jobs Report 2020</a>—data analysts and scientists, AI and machine learning specialists, and big data professionals—all come under the data analytics umbrella.
+			<div class="scientist">
+				<img id="scientist" src="images/scientist.jpg" alt="data scientist banner">
+				<h1 id="ds">Data Scientist</h1>
+				<p>Data scientists are analytical experts who utilize their skills in both technology and social science to find trends and manage data. They use industry knowledge, contextual understanding, skepticism of existing assumptions – to uncover solutions to business challenges. A data scientist’s work typically involves making sense of messy, unstructured data, from sources such as smart devices, social media feeds, and emails that don’t neatly fit into a database. echnical skills are not the only thing that matters, however. Data scientists often exist in business settings and are charged with communicating complex ideas and making data-driven organizational decisions. As a result, it is highly important for them to be effective communicators, leaders and team members as well as high-level analytical thinkers. Experienced data scientists and data managers are tasked with developing a company’s best practices, from cleaning to processing and storing data. They work cross functionally with other teams throughout their organization, such as marketing, customer success, and operations. They are highly sought after in today’s data and tech heavy economy, and their salaries and job growth clearly reflect that. Data scientists may specialize in a particular industry or develop strong skills in areas such as artificial intelligence, machine learning, research, or database management. Specialization is a good way to increase your earning potential and do work that is meaningful to you. </p>
+				<p>Key Responsibilities Executed:</p>
+				<ul>
+					<li>Identifying the data-analytics problems that offer the greatest opportunities to the organization</li>
+					<li>Determining the correct data sets and variables</li>
+					<li>Collecting large sets of structured and unstructured data from disparate sources</li>
+					<li>Cleaning and validating the data to ensure accuracy, completeness, and uniformity</li>
+				</ul>
+				<p>The average salary for a Data Scientist can be found here: <a id="a" href="https://www.glassdoor.com/Salaries/data-scientist-salary-SRCH_KO0,14.htm">Glass Door - Data Scientist</a></p>
+				<p>A list of current openings for this type of position can be found here: <a id="a" href="https://www.glassdoor.com/Job/data-scientist-jobs-SRCH_KO0,14.htm"> Glassdoor - Data Scientist</a></p>
+			</div>
+		
+		</div><!-- End of Content-->
 
-  </p>
-</div>
+		<div id="footer">
+			<p>Copyright @ 2021 Baig, Falshaw, Nguyen, Zebroski. All Rights Reserved</p>
+		</div>
 
-<div class="ui-ux" id="ui-ux">
-  <h2>UX/UI:</h2>
-  <p>An innovative and hardworking UX Designer should be able to fulfill various duties and responsibilities. Including this category in your job description will help attract a capable candidate for your position.</p>
+    <!-- Background animtion-->
+        <div class="background">
+            <div class="cube"></div>
+            <div class="cube"></div>
+            <div class="cube"></div>
+            <div class="cube"></div>
+            <div class="cube"></div>
+        </div>
 
-<p>The following are important duties and responsibilities that a UX Designer should be able to execute:
-
-  <ul>
-        <li>Identify target user groups and carry out interviews or other types of inquiry to help understand user needs.
-        <li>Ensure the creation and implementation of customized experiences for the digital user.
-        <li>Produce high-quality solutions through flow diagrams, graphic designs, storyboards and site maps.
-
-    </ul>
-  </p>
-</div>
-
-<div class="data-engineer" id="data-engineer">
-  <h2>Data Engineer</h2>
-  <p>Data engineers use a variety of techniques to improve the consistency and quality of data. They mix raw data from several sources to create formats that are consistent and machine-readable. They also create and test data extraction and transformation frameworks for predictive and prescriptive modeling.
-  <p>The following are important duties and responsibilities that a UX Designer should be able to execute:
-
-  <ul>
-        <li>Across dozens of big franchises, use data-exploration approaches to uncover new sources of knowledge and highlight common issue areas and learning opportunities.
-        <li>Perform unit, integration, and system tests on data sources to check data against source systems and to improve query speed and cost.
-        <li>Data architecture, engineering, testing, and operational excellence best practices can help business and engineering teams improve their processes. Improve data processing by making improvements.
-    </ul>
-  </p>
-</div>
-
-<div class="data-analyst" id="data-analyst">
-  <h2>Data Analyst</h2>
-  <p> Data Analysts are entrusted with building an awareness of various research needs and analytic functions across many projects. Additionally, they will collaborate on projects with other Data Analysts and Data Extraction Analysts, requiring knowledge and skill sharing as well as group problem solving. Overall, a Data Analyst will be an important part of a fast-paced research team. 
-  </p>
-  <p>The following are important duties and responsibilities that a UX Designer should be able to execute:
-
-  <ul>
-        <li>Independently turn requests into actionable results by interacting with research databases, formulating results displays, and writing complex code that can be applied to a wide range of quantitative data. 
-        <li> The ability to assess, transform, and control the quality of results, and be skilled at coding in multiple languages (Python or R).
-        <li>Provide database maintenance, data quality management, computational support for multidisciplinary research projects, data extraction and formatting, and critical inputs for papers and presentations to important research projects.
-    </ul>
-  </p>
-</div>
-
-<div class="data-scientist" id="data-scientist">
-  <h2>Data Scientist</h2>
-  <p>A data scientist is a person who uses data to create value. Such a person gathers data from a variety of sources and analyzes it in order to have a better understanding of how the business operates and to develop AI solutions to automate specific activities within the organization.</p>
-
-<p>The following are important duties and responsibilities that a UX Designer should be able to execute:
-
-  <ul>
-        <li>Analyze market dynamics, potential gain and cost of new product initiatives, and consult on product strategy
-        <li>Use data and experiment to verify hypothesis around bottlenecks in product growth, and consult on direction for improvement;
-        <li>Work with engineers and product stakeholders to deliver product insights.
-    </ul>
-  </p>
-</div>
-
-
-<div class="footer">
-  <p><span class="bold">Created By:</span> Bisma Baig, Aly Falshaw, Jimmy Zebroski, and Michelle Nguyen</p>
-</div>
+    </div><!--End Container-fluid-->
 
 </body>
 </html>
